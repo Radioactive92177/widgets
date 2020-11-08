@@ -11,7 +11,7 @@ const Accordion = ({ items }) => {
     const active = activeIndex === index ? "active" : "";
     return (
       <Fragment key={item.title}>
-        <div className={`title ${active}`}  onClick={() => onTitleClick(index)}>
+        <div className={`title ${active}`} onClick={() => onTitleClick(index)}>
           <i className="dropdown icon"></i>
           {item.title}
         </div>
