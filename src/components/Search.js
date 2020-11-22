@@ -19,10 +19,18 @@ const Search = () => {
       setResults(data.query.search);
     };
 
-    //! User can clear the input field <Bug fixed>
-    if (term) {
-      search();
-    }
+    //* API request throttled <=BUG FIXED: lag added of 5 seconds>=
+    const timerID = setTimeout(() => {
+      //! User can clear the input field <=BUG FIXED>=
+      if (term) {
+        search();
+      }
+    }, 500);
+
+    //* For cleanup of the last request
+    return () => {
+      clearTimeout(timerID);
+    };
   }, [term]);
 
   const renderResults = results.map((result) => {
