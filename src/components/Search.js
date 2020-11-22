@@ -19,18 +19,23 @@ const Search = () => {
       setResults(data.query.search);
     };
 
-    //* API request throttled <=BUG FIXED: lag added of 5 seconds>=
-    const timerID = setTimeout(() => {
-      //! User can clear the input field <=BUG FIXED>=
-      if (term) {
-        search();
-      }
-    }, 500);
+    // Todo : Removed lag from the first result
+    if (term && !results.length) {
+      search();
+    } else {
+      //* API request throttled <=BUG FIXED: lag added of 5 seconds>=
+      const timerID = setTimeout(() => {
+        //! User can clear the input field <=BUG FIXED>=
+        if (term) {
+          search();
+        }
+      }, 500);
 
-    //* For cleanup of the last request
-    return () => {
-      clearTimeout(timerID);
-    };
+      //* For cleanup of the last request
+      return () => {
+        clearTimeout(timerID);
+      };
+    }
   }, [term]);
 
   const renderResults = results.map((result) => {
